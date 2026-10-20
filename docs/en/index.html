@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LayFlip — fixes text typed in the wrong keyboard layout</title>
+<meta name="description" content="Select it, hold the key under Esc and scroll up - text typed in the wrong keyboard layout is fixed. Free-for-personal-use Windows app, 38 languages, nothing sent anywhere.">
+<link rel="alternate" hreflang="ru" href="../">
+<link rel="alternate" hreflang="en" href="./">
+<link rel="icon" href="../assets/app-icon.png">
+<style>
+  :root {
+    --bg: #0f1420;
+    --bg-soft: #161d2e;
+    --card: #1b2436;
+    --border: #2a3550;
+    --text: #e8ecf5;
+    --muted: #9aa7c2;
+    --accent: #5b8cff;
+    --accent-2: #ffd166;
+    --good: #5fd98a;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.55;
+  }
+  a { color: var(--accent); }
+  .wrap { max-width: 980px; margin: 0 auto; padding: 0 20px; }
+  header.site {
+    display: flex; align-items: center; gap: 12px;
+    padding: 18px 0;
+  }
+  header.site img { width: 36px; height: 36px; border-radius: 8px; }
+  header.site .name { font-weight: 700; }
+  header.site nav { margin-left: auto; display: flex; gap: 18px; font-size: 14px; }
+  header.site nav a { color: var(--muted); text-decoration: none; }
+  header.site nav a:hover { color: var(--text); }
+
+  .hero { padding: 48px 0 32px; text-align: center; }
+  .hero img.logo { width: 88px; height: 88px; border-radius: 20px; box-shadow: 0 10px 30px rgba(91,140,255,.25); }
+  h1 { font-size: 2.1rem; margin: 22px 0 10px; }
+  .tagline {
+    font-size: 1.15rem; color: var(--muted); max-width: 640px; margin: 0 auto 22px;
+  }
+  .mechanic {
+    display: inline-block; background: var(--card); border: 1px solid var(--border);
+    border-radius: 12px; padding: 14px 22px; font-size: 1.05rem; font-weight: 600;
+  }
+  .mechanic .down { color: var(--muted); font-weight: 400; }
+  .reassure { margin-top: 10px; color: var(--muted); font-size: .92rem; }
+
+  .cta { margin-top: 28px; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 12px 20px; border-radius: 10px; font-weight: 600; text-decoration: none;
+    border: 1px solid var(--border);
+  }
+  .btn.primary { background: var(--accent); color: #fff; border-color: transparent; }
+  .btn.ghost { color: var(--text); }
+  .btn small { font-weight: 400; opacity: .85; }
+  .meta-line { margin-top: 10px; font-size: .85rem; color: var(--muted); }
+
+  /* Gesture animation */
+  .stage {
+    margin: 40px auto 0; max-width: 520px; background: var(--card); border: 1px solid var(--border);
+    border-radius: 16px; padding: 28px; position: relative; overflow: hidden;
+  }
+  .stage-text {
+    font-family: Consolas, Menlo, monospace; font-size: 1.3rem; text-align: center;
+    padding: 10px; border-radius: 8px; background: var(--bg-soft);
+    position: relative;
+  }
+  .stage-text .before { animation: fadeStep1 4s infinite; }
+  .stage-text .after  { animation: fadeStep2 4s infinite; opacity: 0; position: absolute; left: 0; right: 0; top: 10px; }
+  @keyframes fadeStep1 { 0%,55% { opacity: 1; } 65%,100% { opacity: 0; } }
+  @keyframes fadeStep2 { 0%,55% { opacity: 0; } 70%,100% { opacity: 1; } }
+  .gesture-icons {
+    display: flex; justify-content: center; gap: 28px; margin-top: 18px; color: var(--muted); font-size: .85rem;
+  }
+  .gesture-icons .step { text-align: center; }
+  .gesture-icons .emoji { font-size: 1.6rem; display: block; margin-bottom: 4px; animation: pulse 4s infinite; }
+  @keyframes pulse { 0%,30%{opacity:.35} 35%,55%{opacity:1} 60%,100%{opacity:.35} }
+
+  section { padding: 44px 0; border-top: 1px solid var(--border); }
+  h2 { font-size: 1.5rem; margin-bottom: 18px; }
+
+  .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  @media (max-width: 760px) { .grid3 { grid-template-columns: 1fr; } }
+  .card {
+    background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 20px;
+  }
+  .card h3 { margin: 0 0 8px; font-size: 1.05rem; }
+  .card p { margin: 0; color: var(--muted); font-size: .94rem; }
+  .card .badge { display: inline-block; font-size: .75rem; color: var(--good); border: 1px solid var(--good); border-radius: 999px; padding: 2px 8px; margin-bottom: 8px; }
+
+  table.cmp { width: 100%; border-collapse: collapse; font-size: .92rem; }
+  table.cmp th, table.cmp td { padding: 10px 12px; border-bottom: 1px solid var(--border); text-align: left; }
+  table.cmp th { color: var(--muted); font-weight: 600; }
+  table.cmp td.yes { color: var(--good); }
+  table.cmp td.no { color: var(--muted); }
+  .scroll-x { overflow-x: auto; }
+
+  .faq details {
+    background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+    padding: 14px 18px; margin-bottom: 10px;
+  }
+  .faq summary { cursor: pointer; font-weight: 600; }
+  .faq p { color: var(--muted); margin: 10px 0 0; }
+
+  .limits ul { color: var(--muted); padding-left: 20px; }
+  .limits li { margin-bottom: 8px; }
+  .numbers { display: flex; gap: 22px; flex-wrap: wrap; margin-top: 14px; }
+  .numbers .n { background: var(--bg-soft); border: 1px solid var(--border); border-radius: 10px; padding: 10px 16px; font-size: .88rem; }
+  .numbers .n b { display: block; font-size: 1.15rem; color: var(--text); }
+
+  footer { padding: 30px 0 50px; color: var(--muted); font-size: .85rem; text-align: center; }
+  footer a { color: var(--muted); }
+</style>
+</head>
+<body>
+
+<header class="site wrap">
+  <img src="../assets/app-icon.png" alt="LayFlip">
+  <span class="name">LayFlip</span>
+  <nav>
+    <a href="#trust">Trust</a>
+    <a href="#faq">FAQ</a>
+    <a href="#limits">Limits</a>
+    <a href="https://github.com/Afonnis/LayFlip">GitHub</a>
+    <a href="../" lang="ru">Русский</a>
+  </nav>
+</header>
+
+<div class="hero wrap">
+  <img class="logo" src="../assets/app-icon.png" alt="">
+  <h1>Fixes text typed in the wrong keyboard layout</h1>
+  <p class="tagline">Free for personal use, for Windows. For anyone who switches between keyboard layouts: "Ghbdtn, rfr ltkf?" becomes "Привет, как дела?", "руддщ цщкдв" becomes "hello world". 38 languages, from Russian, Ukrainian and Kazakh to German, French, Greek, Hebrew, Arabic, Armenian and Georgian.</p>
+
+  <div class="mechanic">
+    Select it, hold the key under Esc (<code>`</code>) and scroll up.
+    <span class="down">Scroll down to undo.</span>
+  </div>
+  <p class="reassure">A short press still types the key as usual — the gesture only reacts to holding it while scrolling.</p>
+
+  <div class="cta">
+    <a class="btn primary" href="https://github.com/Afonnis/LayFlip/releases/latest">
+      Download for Windows <small>· version 2.9.0</small>
+    </a>
+    <a class="btn ghost" href="https://github.com/Afonnis/LayFlip/blob/main/PRIVACY.md">What it reads and stores</a>
+  </div>
+  <p class="meta-line">
+    Installer (.exe), ~1 MB, Windows 10 and 11, no administrator rights needed. Every release publishes
+    its SHA-256 (<code>LayFlipSetup.exe.sha256</code>). Or with winget:
+    <code>winget install Afonnis.LayFlip</code>
+  </p>
+
+  <div class="stage" style="max-width:800px;padding:16px">
+    <img src="../assets/demo.gif" alt="LayFlip fixing &quot;Ghbdtn, rfr ltkf?&quot; into &quot;Привет, как дела?&quot; and &quot;руддщ цщкдв&quot; into &quot;hello world&quot;" style="width:100%;border-radius:8px;display:block">
+  </div>
+</div>
+
+<section id="trust" class="wrap">
+  <h2>Why you can trust it</h2>
+  <div class="grid3">
+    <div class="card">
+      <span class="badge">Verifiable</span>
+      <h3>Works on your computer only</h3>
+      <p>Check it yourself: block the program in Windows Firewall or watch its connections in Resource Monitor — there are none, and it works the same. What it reads and stores is spelled out in the <a href="https://github.com/Afonnis/LayFlip/blob/main/PRIVACY.md">privacy notes</a>.</p>
+    </div>
+    <div class="card">
+      <span class="badge">Local</span>
+      <h3>Records nothing, sends nothing</h3>
+      <p>The only network request in the whole program is "Check for updates", which opens the releases page in your browser when you click it. No background checks, no telemetry, no history of what you typed.</p>
+    </div>
+    <div class="card">
+      <span class="badge">Honest</span>
+      <h3>Not code-signed yet</h3>
+      <p>Windows SmartScreen may warn about an unknown publisher — click "More info" → "Run anyway". If Smart App Control blocks the installer: right-click the file → Properties → tick "Unblock" → OK. That is expected for a new unsigned app, not a sign of anything malicious; the installer's checksum is published next to it on the release page.</p>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:16px;">
+    <h3>How it physically works (the hook)</h3>
+    <p>
+      LayFlip installs low-level keyboard and mouse-wheel hooks (<code>WH_KEYBOARD_LL</code>/<code>WH_MOUSE_LL</code>) —
+      the same Windows mechanism layout switchers and clipboard managers use. The hook only looks at which
+      physical key is held and when the wheel turns, to recognise the gesture; it does not read or store the
+      rest of your typing. The text itself reaches the program only at the moment of the gesture, by copying
+      the selection; it is converted in memory and pasted straight back, and your clipboard is restored to
+      what it was before.
+    </p>
+  </div>
+</section>
+
+<section id="limits" class="limits wrap">
+  <h2>Limits (stated plainly)</h2>
+  <ul>
+    <li><b>No dictionary.</b> LayFlip does not keep a list of "real words". It uses a statistical letter model
+      (how likely each letter is after the two before it, in each of 38 languages) and looks at the phrase as a
+      whole. That is fast and needs no word lists, but it is occasionally wrong — most often between Russian and
+      Ukrainian, which share nearly every key; then a second scroll switches the whole phrase to the other one.</li>
+    <li><b>Undo is always at hand.</b> If a fix was wrong, scrolling down (or Ctrl+Z) puts the original back at once,
+      and LayFlip remembers to leave that word alone from then on.</li>
+    <li><b>A choice, not a guess, for genuinely ambiguous words.</b> When the model cannot pick between two
+      readings with confidence, it does not guess: one more scroll shows the other one.</li>
+    <li><b>Letters typed with AltGr</b> (Polish ą, Latvian ā, Kyrgyz ң) have no key on a Russian or English
+      layout, so text typed there without them cannot come back in full.</li>
+  </ul>
+  <div class="numbers">
+    <div class="n"><b>99.5%</b>of Russian sentences typed on the English layout fixed completely on the first scroll (~1970 sentences)</div>
+    <div class="n"><b>98.3%</b>of Ukrainian sentences fixed on the first scroll, 99.3% on the second (~1960 sentences)</div>
+    <div class="n"><b>99.2%</b>of English sentences typed on the Russian layout fixed completely (~2000 sentences)</div>
+    <div class="n"><b>0.0–0.1%</b>of correct sentences changed by mistake (RU / UK / EN, ~2000 each)</div>
+    <div class="n"><b>~35 MB</b>of memory while idle (measured in Task Manager)</div>
+  </div>
+</section>
+
+<section id="faq" class="faq wrap">
+  <h2>FAQ</h2>
+  <details>
+    <summary>How do I fix something?</summary>
+    <p>Select it, hold the key under Esc and scroll the wheel up. Scroll down to undo. A short press types the key
+      as usual, so normal typing is not affected. CapsLock, right Ctrl, right Alt or a mouse side button can be the
+      gesture key instead (Settings).</p>
+  </details>
+  <details>
+    <summary>Which languages does it support?</summary>
+    <p>It converts between the keyboard layouts you have installed in Windows (Settings → Time &amp; language →
+      Language &amp; region). Letter models cover English, Russian, Ukrainian, Belarusian, Bulgarian, Serbian,
+      Macedonian, Tatar, Kazakh, Kyrgyz, Mongolian, Greek, German, French, Spanish, Italian, Portuguese, Polish,
+      Czech, Slovak, Dutch, Swedish, Danish, Norwegian, Finnish, Hungarian, Romanian, Lithuanian, Latvian,
+      Estonian, Icelandic, Croatian, Turkish, Hebrew, Arabic, Persian, Armenian and Georgian.</p>
+  </details>
+  <details>
+    <summary>Does it need administrator rights?</summary>
+    <p>No, it installs for the current user only. The one exception: if the window you paste into runs as
+      administrator, LayFlip has to run as administrator too — Windows does not let a normal app paste into an
+      elevated one. LayFlip shows a notification when that happens.</p>
+  </details>
+  <details>
+    <summary>Can it see what I type?</summary>
+    <p>The low-level hook sees physical key presses and the mouse wheel in order to recognise the gesture, but it
+      does not store or send any text (to fix what you just typed it only counts characters and spaces, in memory). Text reaches the program only at the moment of the gesture, by copying the
+      selected fragment, and is processed locally right away.</p>
+  </details>
+  <details>
+    <summary>Why does it sometimes offer "another reading" instead of a fix?</summary>
+    <p>Russian "ы" and Ukrainian "і" sit on the same key, and for some words the model cannot pick one reading with
+      confidence. Then a second scroll in the same hold shows the alternative instead of silently guessing.</p>
+  </details>
+</section>
+
+<footer class="wrap">
+  <p>LayFlip · free for personal use · <a href="https://github.com/Afonnis/LayFlip/blob/main/LICENSE">license</a> ·
+    <a href="https://github.com/Afonnis/LayFlip">GitHub</a> ·
+    <a href="https://github.com/Afonnis/LayFlip/security/policy">security policy</a> ·
+    <a href="../" lang="ru">по-русски</a>
+  </p>
+</footer>
+
+</body>
+</html>

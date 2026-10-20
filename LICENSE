@@ -1,0 +1,62 @@
+LayFlip - End-User License Agreement
+
+Copyright (c) 2026 Andrii Ahafonov (Afonnis). All rights reserved.
+
+This agreement is between you and Andrii Ahafonov ("the author"). By installing or using LayFlip
+(the program, its installer, the language models and data built into it, and its documentation:
+"the Software") you accept it. If you do not accept it, do not install or use the Software.
+
+1. FREE PERSONAL USE
+You may install and use the Software free of charge on your own devices for personal,
+non-commercial purposes: your own writing, study, and non-profit hobby use.
+
+2. COMMERCIAL USE NEEDS A LICENSE
+Using the Software for a business, an employer, a client, or any organization (including as an
+employee or freelancer, and including schools and public bodies that are not charities) requires a
+commercial license from the author. You may evaluate the Software for 30 days before buying one.
+To get a license, write to the contact address on https://github.com/Afonnis/LayFlip.
+
+3. WHAT YOU MAY NOT DO
+ a. Copy or redistribute the Software, except the unmodified official installer, obtained from the
+    official releases page, passed on in full and for free.
+ b. Sell, rent, lease, sublicense or host the Software for others.
+ c. Reverse engineer, decompile or disassemble the Software, or work out its source code, except
+    to the extent the law of your country allows this despite this clause.
+ d. Extract, copy or reuse the language models and other data built into the Software, or use
+    them to build another product.
+ e. Remove or change copyright notices.
+
+4. OWNERSHIP
+The Software is licensed, not sold. The author keeps all rights not expressly granted here. Third-party
+material built into the Software (see NOTICE.md) stays under its own licenses.
+
+5. PRIVACY
+The Software works on your device only and does not send anything anywhere. PRIVACY.md describes
+what it does with your text and the clipboard while you use it.
+
+6. NO WARRANTY
+The Software is provided "as is", without warranty of any kind. It fixes text by guessing what you
+meant to type, and a guess can be wrong - check the result before relying on it, especially in
+important documents. Use the undo gesture or your application's undo if it gets something wrong.
+
+7. LIMIT OF LIABILITY
+To the extent the law allows, the author is not liable for lost data, lost profits or any indirect or
+consequential damage arising from the Software, and the author's total liability is limited to the
+price you paid for it (nothing, for free personal use). Rights you have as a consumer by law that
+cannot be excluded are not affected.
+
+8. TERMINATION
+This agreement ends automatically if you break it. Then you must stop using the Software and delete
+all copies.
+
+9. EARLIER VERSIONS
+Versions released before 17 October 2026 were published under the MIT License. Copies you received
+under it stay under it. This agreement applies to the versions released from that date on.
+
+10. LAW
+This agreement is governed by the law of Ukraine. Disputes are settled by the courts of Ukraine,
+unless mandatory law of your country of residence says otherwise.
+
+11. CHANGES
+The author may publish a new version of this agreement with a new version of the Software. A
+version you already have stays under the agreement it came with.

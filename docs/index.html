@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LayFlip — исправляет текст не в той раскладке</title>
+<meta name="description" content="Выделите, зажмите ё и прокрутите вверх. Вниз — вернуть. Бесплатная для личного использования утилита для Windows: 38 языков, без фоновой отправки текста куда-либо.">
+<link rel="alternate" hreflang="en" href="en/">
+<link rel="alternate" hreflang="ru" href="./">
+<link rel="icon" href="assets/app-icon.png">
+<style>
+  :root {
+    --bg: #0f1420;
+    --bg-soft: #161d2e;
+    --card: #1b2436;
+    --border: #2a3550;
+    --text: #e8ecf5;
+    --muted: #9aa7c2;
+    --accent: #5b8cff;
+    --accent-2: #ffd166;
+    --good: #5fd98a;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.55;
+  }
+  a { color: var(--accent); }
+  .wrap { max-width: 980px; margin: 0 auto; padding: 0 20px; }
+  header.site {
+    display: flex; align-items: center; gap: 12px;
+    padding: 18px 0;
+  }
+  header.site img { width: 36px; height: 36px; border-radius: 8px; }
+  header.site .name { font-weight: 700; }
+  header.site nav { margin-left: auto; display: flex; gap: 18px; font-size: 14px; }
+  header.site nav a { color: var(--muted); text-decoration: none; }
+  header.site nav a:hover { color: var(--text); }
+
+  .hero { padding: 48px 0 32px; text-align: center; }
+  .hero img.logo { width: 88px; height: 88px; border-radius: 20px; box-shadow: 0 10px 30px rgba(91,140,255,.25); }
+  h1 { font-size: 2.1rem; margin: 22px 0 10px; }
+  .tagline {
+    font-size: 1.15rem; color: var(--muted); max-width: 640px; margin: 0 auto 22px;
+  }
+  .mechanic {
+    display: inline-block; background: var(--card); border: 1px solid var(--border);
+    border-radius: 12px; padding: 14px 22px; font-size: 1.05rem; font-weight: 600;
+  }
+  .mechanic .down { color: var(--muted); font-weight: 400; }
+  .reassure { margin-top: 10px; color: var(--muted); font-size: .92rem; }
+
+  .cta { margin-top: 28px; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 12px 20px; border-radius: 10px; font-weight: 600; text-decoration: none;
+    border: 1px solid var(--border);
+  }
+  .btn.primary { background: var(--accent); color: #fff; border-color: transparent; }
+  .btn.ghost { color: var(--text); }
+  .btn small { font-weight: 400; opacity: .85; }
+  .meta-line { margin-top: 10px; font-size: .85rem; color: var(--muted); }
+
+  /* Gesture animation */
+  .stage {
+    margin: 40px auto 0; max-width: 520px; background: var(--card); border: 1px solid var(--border);
+    border-radius: 16px; padding: 28px; position: relative; overflow: hidden;
+  }
+  .stage-text {
+    font-family: Consolas, Menlo, monospace; font-size: 1.3rem; text-align: center;
+    padding: 10px; border-radius: 8px; background: var(--bg-soft);
+    position: relative;
+  }
+  .stage-text .before { animation: fadeStep1 4s infinite; }
+  .stage-text .after  { animation: fadeStep2 4s infinite; opacity: 0; position: absolute; left: 0; right: 0; top: 10px; }
+  @keyframes fadeStep1 { 0%,55% { opacity: 1; } 65%,100% { opacity: 0; } }
+  @keyframes fadeStep2 { 0%,55% { opacity: 0; } 70%,100% { opacity: 1; } }
+  .gesture-icons {
+    display: flex; justify-content: center; gap: 28px; margin-top: 18px; color: var(--muted); font-size: .85rem;
+  }
+  .gesture-icons .step { text-align: center; }
+  .gesture-icons .emoji { font-size: 1.6rem; display: block; margin-bottom: 4px; animation: pulse 4s infinite; }
+  @keyframes pulse { 0%,30%{opacity:.35} 35%,55%{opacity:1} 60%,100%{opacity:.35} }
+
+  section { padding: 44px 0; border-top: 1px solid var(--border); }
+  h2 { font-size: 1.5rem; margin-bottom: 18px; }
+
+  .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  @media (max-width: 760px) { .grid3 { grid-template-columns: 1fr; } }
+  .card {
+    background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 20px;
+  }
+  .card h3 { margin: 0 0 8px; font-size: 1.05rem; }
+  .card p { margin: 0; color: var(--muted); font-size: .94rem; }
+  .card .badge { display: inline-block; font-size: .75rem; color: var(--good); border: 1px solid var(--good); border-radius: 999px; padding: 2px 8px; margin-bottom: 8px; }
+
+  table.cmp { width: 100%; border-collapse: collapse; font-size: .92rem; }
+  table.cmp th, table.cmp td { padding: 10px 12px; border-bottom: 1px solid var(--border); text-align: left; }
+  table.cmp th { color: var(--muted); font-weight: 600; }
+  table.cmp td.yes { color: var(--good); }
+  table.cmp td.no { color: var(--muted); }
+  .scroll-x { overflow-x: auto; }
+
+  .faq details {
+    background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+    padding: 14px 18px; margin-bottom: 10px;
+  }
+  .faq summary { cursor: pointer; font-weight: 600; }
+  .faq p { color: var(--muted); margin: 10px 0 0; }
+
+  .limits ul { color: var(--muted); padding-left: 20px; }
+  .limits li { margin-bottom: 8px; }
+  .numbers { display: flex; gap: 22px; flex-wrap: wrap; margin-top: 14px; }
+  .numbers .n { background: var(--bg-soft); border: 1px solid var(--border); border-radius: 10px; padding: 10px 16px; font-size: .88rem; }
+  .numbers .n b { display: block; font-size: 1.15rem; color: var(--text); }
+
+  footer { padding: 30px 0 50px; color: var(--muted); font-size: .85rem; text-align: center; }
+  footer a { color: var(--muted); }
+</style>
+</head>
+<body>
+
+<header class="site wrap">
+  <img src="assets/app-icon.png" alt="LayFlip">
+  <span class="name">LayFlip</span>
+  <nav>
+    <a href="#trust">Доверие</a>
+    <a href="#faq">FAQ</a>
+    <a href="#limits">Ограничения</a>
+    <a href="https://github.com/Afonnis/LayFlip">GitHub</a>
+    <a href="en/" lang="en">English</a>
+  </nav>
+</header>
+
+<div class="hero wrap">
+  <img class="logo" src="assets/app-icon.png" alt="">
+  <h1>Исправляет текст, набранный не в той раскладке</h1>
+  <p class="tagline">Бесплатно для личного использования, для Windows. Работает с русской, украинской, белорусской и английской раскладками, а также с болгарской, сербской, македонской, татарской, казахской, киргизской, монгольской, греческой, немецкой, французской, испанской, итальянской, португальской, польской, чешской, словацкой, нидерландской, шведской, датской, норвежской, финской, венгерской, румынской, литовской, латышской, эстонской, исландской, хорватской, турецкой, ивритом, арабской, персидской, армянской и грузинской.</p>
+
+  <div class="mechanic">
+    Выделите, зажмите <code>ё</code> и прокрутите вверх.
+    <span class="down">Вниз — вернуть.</span>
+  </div>
+  <p class="reassure">Короткое нажатие печатает символ как обычно — жест реагирует только на удержание со скроллом.</p>
+
+  <div class="cta">
+    <a class="btn primary" href="https://github.com/Afonnis/LayFlip/releases">
+      Скачать для Windows <small>· версия 2.9.0</small>
+    </a>
+    <a class="btn ghost" href="https://github.com/Afonnis/LayFlip/blob/main/PRIVACY.md">Что программа читает и хранит</a>
+  </div>
+  <p class="meta-line">
+    Установщик (.exe), ~1 МБ, Windows 10 и 11, без прав администратора. Рядом с каждым релизом
+    опубликован его SHA-256 (<code>LayFlipSetup.exe.sha256</code>). Или через winget:
+    <code>winget install Afonnis.LayFlip</code>
+  </p>
+
+  <div class="stage" style="max-width:800px;padding:16px">
+    <img src="assets/demo.gif" alt="LayFlip исправляет «Ghbdtn, rfr ltkf?» в «Привет, как дела?» и «руддщ цщкдв» в «hello world»" style="width:100%;border-radius:8px;display:block">
+  </div>
+</div>
+
+<section id="trust" class="wrap">
+  <h2>Почему можно доверять</h2>
+  <div class="grid3">
+    <div class="card">
+      <span class="badge">Проверяемо</span>
+      <h3>Работает только на вашем компьютере</h3>
+      <p>Проверьте сами: заблокируйте программу в брандмауэре Windows или посмотрите её соединения в «Мониторе ресурсов» — их нет, и работать она от этого не перестанет. Что она читает и что хранит, описано в <a href="https://github.com/Afonnis/LayFlip/blob/main/PRIVACY.md">политике приватности</a>.</p>
+    </div>
+    <div class="card">
+      <span class="badge">Локально</span>
+      <h3>Ничего не записывает и не отправляет</h3>
+      <p>Единственное сетевое обращение во всей программе — ручная проверка обновлений по клику в меню, и больше ничего: ни фоновых проверок, ни телеметрии, ни истории набранного текста "на всякий случай".</p>
+    </div>
+    <div class="card">
+      <span class="badge">Честно</span>
+      <h3>Пока без цифровой подписи</h3>
+      <p>Сертификат подписи ещё не подключён, поэтому Windows SmartScreen может показать предупреждение о неизвестном издателе — нажмите «Подробнее» → «Выполнить в любом случае». Если включён Smart App Control и установщик заблокирован: правый клик по файлу → «Свойства» → отметьте «Разблокировать» → OK. Это ожидаемо для нового приложения без подписи, а не признак чего-то вредоносного; контрольная сумма установщика публикуется рядом с ним на странице релиза.</p>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:16px;">
+    <h3>Как это физически работает (хук)</h3>
+    <p>
+      Программа ставит низкоуровневый перехватчик клавиатуры и колеса мыши (<code>WH_KEYBOARD_LL</code>/<code>WH_MOUSE_LL</code>) —
+      тот же системный механизм, которым пользуются раскладка-переключатели и менеджеры буфера обмена.
+      Перехватчик смотрит только на то, какая физическая клавиша нажата и когда крутится колесо, чтобы
+      распознать жест "удержал ё + прокрутил" — он не читает и не сохраняет остальной ввод. Сам текст программа
+      получает только в момент жеста, через выделение и копирование, обрабатывает его в памяти и сразу
+      вставляет обратно; буфер обмена после этого восстанавливается в то состояние, в котором был до жеста.
+    </p>
+  </div>
+</section>
+
+<section class="wrap">
+  <h2>Сравнение с похожими программами</h2>
+  <div class="scroll-x">
+  <table class="cmp">
+    <tr><th></th><th>LayFlip</th><th>Punto Switcher</th><th>Caramba Switcher</th></tr>
+    <tr><td>Языки</td><td class="yes">38, по установленным раскладкам</td><td>EN / RU / UK и ещё ~10</td><td>EN / RU (UK — не всегда)</td></tr>
+    <tr><td>Фоновая телеметрия / проверка обновлений</td><td class="yes">Только вручную по клику</td><td class="no">Есть автообновление</td><td class="no">Есть автообновление</td></tr>
+    <tr><td>История набранного текста ("дневник")</td><td class="yes">Нет</td><td class="no">Есть (опционально)</td><td class="yes">Нет</td></tr>
+    <tr><td>Выбор между вариантами для неоднозначных слов</td><td class="yes">Да, прокруткой</td><td class="no">Нет</td><td class="no">Нет</td></tr>
+    <tr><td>Исправление случайного Caps Lock</td><td class="yes">Да</td><td class="no">Нет</td><td class="yes">Да</td></tr>
+    <tr><td>Метод распознавания</td><td>Статистическая модель букв + контекст фразы</td><td>Словарь</td><td>Словарь + свои правила</td></tr>
+  </table>
+  </div>
+</section>
+
+<section id="limits" class="limits wrap">
+  <h2>Ограничения (честно, не замалчиваем)</h2>
+  <ul>
+    <li><b>Без словаря.</b> Программа не хранит список "настоящих слов" языка — вместо этого она использует
+      статистическую модель букв (насколько вероятна каждая буква после двух предыдущих в каждом из 38 языков) и смотрит на фразу целиком. Это быстрее и не требует закачивать словари, но изредка
+      ошибается — чаще всего путает русский и украинский; тогда второй скролл переключает всю фразу
+      на другой язык.</li>
+    <li><b>Отмена всегда под рукой.</b> Если правка оказалась неверной — прокрутка вниз (или Ctrl+Z) мгновенно
+      возвращает исходный текст и запоминает, что это слово трогать больше не нужно.</li>
+    <li><b>Для действительно неоднозначных слов — выбор, а не угадывание.</b> Когда модель не может уверенно
+      выбрать между двумя прочтениями, программа не гадает: второй скролл подряд показывает другой вариант.</li>
+  </ul>
+  <div class="numbers">
+    <div class="n"><b>99,5%</b>русских фраз, набранных в английской раскладке, исправлены целиком с первого раза (тест на ~1970 фразах)</div>
+    <div class="n"><b>98,3%</b>украинских фраз исправлены целиком с первого раза, 99,3% — со второго (тест на ~1960 фразах)</div>
+    <div class="n"><b>99,4%</b>белорусских фраз, набранных в английской раскладке, исправлены целиком (тест на ~1870 фразах)</div>
+    <div class="n"><b>0,1–0,3%</b>правильных фраз задеты по ошибке (RU / UK / EN, ~2000 фраз каждая)</div>
+    <div class="n"><b>~35 МБ</b>оперативной памяти в режиме ожидания (реально измерено, Task Manager)</div>
+  </div>
+</section>
+
+<section id="faq" class="faq wrap">
+  <h2>FAQ</h2>
+  <details>
+    <summary>Как включить исправление?</summary>
+    <p>Выделите, зажмите ё и прокрутите вверх. Вниз — вернуть. Короткое нажатие печатает символ как обычно —
+      ничего не ломается в обычном наборе текста.</p>
+  </details>
+  <details>
+    <summary>Нужны ли права администратора?</summary>
+    <p>Нет, установка идёт только для текущего пользователя. Исключение — если целевое окно (куда вставляется
+      текст) само запущено от имени администратора: тогда вставка в него тоже потребует запустить LayFlip
+      с правами администратора.</p>
+  </details>
+  <details>
+    <summary>Программа видит, что я печатаю?</summary>
+    <p>Низкоуровневый хук видит физические нажатия клавиш и колесо мыши, чтобы распознать жест, но не
+      сохраняет и никуда не отправляет сам текст. Содержимое попадает в программу только в момент жеста,
+      через копирование выделенного фрагмента, и сразу же обрабатывается локально.</p>
+  </details>
+  <details>
+    <summary>Чем это отличается от Punto Switcher или Caramba Switcher?</summary>
+    <p>Главное отличие — работа без сети и без записи набранного и честная поддержка 38 языков (от русского и украинского до греческого, арабского и армянского), включая выбор между
+      вариантами для действительно неоднозначных слов. Подробности — в таблице сравнения выше.</p>
+  </details>
+  <details>
+    <summary>Почему иногда предлагается "другой вариант" вместо исправления?</summary>
+    <p>Русское "ы" и украинское "і" физически сидят на одной клавише, и для некоторых слов модель не может
+      уверенно выбрать одно прочтение. В этом случае второй скролл подряд в том же удержании показывает
+      альтернативу вместо того, чтобы молча угадывать.</p>
+  </details>
+</section>
+
+<footer class="wrap">
+  <p>LayFlip · для личного использования бесплатно · <a href="https://github.com/Afonnis/LayFlip/blob/main/LICENSE.ru.txt">лицензия</a> ·
+    <a href="https://github.com/Afonnis/LayFlip">GitHub</a> ·
+    <a href="https://github.com/Afonnis/LayFlip/security/policy">политика безопасности</a>
+  </p>
+</footer>
+
+</body>
+</html>
