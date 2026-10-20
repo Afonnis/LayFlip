@@ -4,7 +4,7 @@ What changed for people using LayFlip, newest first. Installers for every versio
 [releases page](https://github.com/Afonnis/LayFlip/releases); accuracy numbers come from the benchmark
 described in [HOW-IT-WORKS.md](HOW-IT-WORKS.md#accuracy).
 
-## Unreleased
+## 2.9.1 - 2026-10-20
 
 - **New license:** free for personal use, a commercial license for work. Versions up to 2.9.0 stay
   under the MIT License. The installer now shows the agreement, and there are privacy notes
