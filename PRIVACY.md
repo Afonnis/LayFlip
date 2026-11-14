@@ -36,4 +36,4 @@ blocking the program changes nothing about how it works.
 
 ## Contact
 
-Questions about privacy: open an issue at https://github.com/Afonnis/LayFlip/issues.
+Questions about privacy: write to andreyka1afonnis@gmail.com or open an issue at https://github.com/Afonnis/LayFlip/issues.

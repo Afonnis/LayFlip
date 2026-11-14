@@ -130,6 +130,8 @@ needs a commercial license; you can try it for 30 days first. The full text is i
 [LICENSE](LICENSE) ([по-русски](LICENSE.ru.txt)). Versions released before 17 October 2026 were
 published under the MIT License.
 
+Commercial licenses and other questions: andreyka1afonnis@gmail.com.
+
 The built-in letter models are counted from sentences of the [Tatoeba](https://tatoeba.org) project
 and, for Kazakh, Kyrgyz and Mongolian, from Wikipedia sentences of the Leipzig Corpora Collection -
 see [NOTICE.md](NOTICE.md).
