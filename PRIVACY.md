@@ -34,6 +34,16 @@ The program makes no network connections. "Check for updates" opens the releases
 browser, only when you click it. You can confirm this with your firewall or Resource Monitor:
 blocking the program changes nothing about how it works.
 
+## Problem reports
+
+"Report a problem" in the tray menu opens a window with what the last gesture was given and what it
+made of it. LayFlip keeps those two texts in memory only, until the next gesture; they are never
+written to disk. You can change or clear every field. Nothing is sent from that window: "Open the
+form" opens a Google Form in your browser with the fields filled in, and only if you press Submit
+there does the report reach the author (Google stores the answers; its privacy policy applies). The
+report also carries the LayFlip version, the Windows version and the list of installed keyboard
+layouts. "Copy" puts the same report on the clipboard instead, to send by mail.
+
 ## Contact
 
 Questions about privacy: write to andreyka1afonnis@gmail.com or open an issue at https://github.com/Afonnis/LayFlip/issues.

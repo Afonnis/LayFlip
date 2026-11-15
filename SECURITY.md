@@ -66,10 +66,12 @@ plain local files, never transmitted.
 - **No automatic network access of any kind.** The program contains no socket, HTTP client
   or background update-check code. You can verify this without the source: block it in
   Windows Firewall or watch its connections in Resource Monitor (Network tab) - there are
-  none, and blocking it changes nothing. The one exception, and the only network-adjacent thing this app can ever do,
-  is the tray menu's "Проверить обновления" - it opens the project's releases page in
-  your default browser, and only in direct response to you clicking it; nothing is ever
-  fetched, checked, or reported automatically or on a schedule.
+  none, and blocking it changes nothing. The only network-adjacent things this app can ever do
+  are the tray menu's "Проверить обновления", which opens the project's releases page in
+  your default browser, and "Сообщить об ошибке", whose "Открыть форму в браузере" opens a
+  pre-filled Google Form there - each only in direct response to you clicking it, and a report
+  goes nowhere unless you submit the form yourself; nothing is ever fetched, checked, or
+  reported automatically or on a schedule.
 - **No telemetry, analytics, or crash reporting** to any external service.
 - **No persistence mechanism of its own** beyond the optional startup shortcut the
   installer creates when its "Launch automatically when Windows starts" checkbox is

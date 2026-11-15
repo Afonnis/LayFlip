@@ -100,6 +100,7 @@ The tray menu itself keeps what is used on the go:
 | **Выключить для «app»** | Adds or removes the app that was in front to the excluded programs. |
 | **Пауза** / global hotkey `Ctrl+Alt+Shift+P` | Pause/resume the gesture without opening the menu. |
 | **Проверить преобразование** | Sanity-checks that conversion works at all (needs at least one non-Latin layout installed). |
+| **Сообщить об ошибке** | Opens a window with the last gesture's text and result, to edit and send as a Google Form in your browser (or copy). Nothing is sent unless you submit the form yourself. |
 | **Версия** | Shows the build's version number (also visible in the `.exe`'s own Properties > Details in Explorer). |
 | **Проверить обновления** | Opens the GitHub releases page in your browser - only when you click it. No background checks, ever (see "Privacy" below). |
 
@@ -280,8 +281,9 @@ change is in [CHANGELOG.md](CHANGELOG.md).
   (checked via the clipboard's sequence number); if you (or another app) copied
   something else mid-gesture, that is left alone instead of being silently overwritten.
 - **No automatic network access, no telemetry, no background update checks.** The only
-  network request this app can ever make is opening the releases page in your browser,
-  and only when you click "Проверить обновления" in the tray menu yourself.
+  network request this app can ever make is opening a page in your browser - the releases
+  page or the problem report form - and only when you click "Проверить обновления" or
+  "Открыть форму в браузере" yourself.
 
 ## Notes on behaviour
 

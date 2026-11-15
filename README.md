@@ -90,9 +90,9 @@ mistake in at most 0.1% of sentences. Per-language numbers and how they are meas
 
 ## Privacy
 
-- **Nothing leaves your computer.** LayFlip makes no network connections - the only exception is
-  "Check for updates" in the tray menu, which opens the releases page in your browser when you
-  click it.
+- **Nothing leaves your computer.** LayFlip makes no network connections. "Check for updates" and
+  "Report a problem" in the tray menu open a page in your browser, only when you click them - a
+  problem report is sent only if you press Submit in that form (see [PRIVACY.md](PRIVACY.md)).
 - **Your text is not logged.** The log (`%LOCALAPPDATA%\LayFlip\layflip.log`) records only what
   happened and how many characters, unless you turn on the detailed log yourself.
 - **Your clipboard is put back** after every fix, and LayFlip's own clipboard writes are kept out

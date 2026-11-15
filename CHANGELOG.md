@@ -6,6 +6,10 @@ described in [HOW-IT-WORKS.md](HOW-IT-WORKS.md#accuracy).
 
 ## Unreleased
 
+- **Report a problem** in the tray menu: when LayFlip fixes something wrong, send the example in a few
+  clicks. The window is filled in from the last gesture; you check and edit it, and it opens a form in
+  your browser - nothing is sent unless you press Submit there yourself.
+
 - **Kazakh, Kyrgyz and Mongolian letter models retrained** on Tatoeba and Common Voice sentences
   (public domain) instead of Wikipedia text. Mongolian typed on the Russian layout is fixed more
   often (90.2 -> 96.5% of sentences), Kyrgyz typed on English 48.9 -> 52.2%, Kazakh about the same.
