@@ -4,6 +4,13 @@ What changed for people using LayFlip, newest first. Installers for every versio
 [releases page](https://github.com/Afonnis/LayFlip/releases); accuracy numbers come from the benchmark
 described in [HOW-IT-WORKS.md](HOW-IT-WORKS.md#accuracy).
 
+## Unreleased
+
+- **Kazakh, Kyrgyz and Mongolian letter models retrained** on Tatoeba and Common Voice sentences
+  (public domain) instead of Wikipedia text. Mongolian typed on the Russian layout is fixed more
+  often (90.2 -> 96.5% of sentences), Kyrgyz typed on English 48.9 -> 52.2%, Kazakh about the same.
+- The license text now names the contact address for commercial licenses.
+
 ## 2.9.1 - 2026-10-20
 
 - **New license:** free for personal use, a commercial license for work. Versions up to 2.9.0 stay

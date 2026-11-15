@@ -229,9 +229,9 @@ English (the numbers above stay within a few tenths with any of them):
 | Estonian | 99.7% | 99.8% | 0.0% |
 | Turkish (Q) | 96.7% | 98.1% | 0.1% |
 | Tatar | 98.9% | 99.9% | 0.1% |
-| Kazakh | 99.4% | 99.9% | 0.0% |
-| Kyrgyz | 48.9%* | 98.6% | 0.1% |
-| Mongolian (Cyrillic) | 97.9% | 90.2% | 0.1% |
+| Kazakh | 99.3% | 99.8% | 0.1% |
+| Kyrgyz | 52.2%* | 98.5% | 0.1% |
+| Mongolian (Cyrillic) | 98.2% | 96.5% | 0.1% |
 | Arabic (101) | 95.6% | 96.4% | 0.2% |
 | Persian (Standard) | 93.5% | 97.0% | 0.2% |
 | Hebrew | 93.5% | 96.2% | 0.1% |
@@ -241,8 +241,8 @@ English (the numbers above stay within a few tenths with any of them):
 | Georgian (QWERTY) | 94.3% | 95.8% | 0.3% |
 
 \* Kyrgyz ң ө ү have no key on the English layout, so most Kyrgyz sentences cannot be typed there
-in full; on the Russian layout, where Kyrgyz is usually typed, 98.6%. Kazakh, Kyrgyz and Mongolian
-are trained with Wikipedia sentences as well (Tatoeba has few).
+in full; on the Russian layout, where Kyrgyz is usually typed, 98.5%. Kazakh, Kyrgyz and Mongolian
+are trained with Common Voice sentences as well (Tatoeba has few).
 
 Greek accents are typed with a dead key, and so they are read: "Kane;iw" is "Κανείς". German
 typed on English differs only in the words with Y, Z, umlauts or ß ("yu" -> "zu", "f[r" ->

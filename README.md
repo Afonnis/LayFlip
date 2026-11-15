@@ -133,5 +133,5 @@ published under the MIT License.
 Commercial licenses and other questions: andreyka1afonnis@gmail.com.
 
 The built-in letter models are counted from sentences of the [Tatoeba](https://tatoeba.org) project
-and, for Kazakh, Kyrgyz and Mongolian, from Wikipedia sentences of the Leipzig Corpora Collection -
-see [NOTICE.md](NOTICE.md).
+and, for Kazakh, Kyrgyz and Mongolian, also from [Common Voice](https://commonvoice.mozilla.org)
+sentences - see [NOTICE.md](NOTICE.md).
